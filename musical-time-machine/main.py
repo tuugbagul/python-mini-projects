@@ -2,6 +2,10 @@ from bs4 import BeautifulSoup
 import requests
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 date = input("Which year do you want to travel to? Type the date in this format YYYY-MM-DD: ")
 header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0"}
@@ -15,12 +19,15 @@ spans = soup.select("li ul li h3")
 song_names = [song.getText().strip() for song in spans]
 
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="6e2a19dbea31438aa6797aebe5644888",
-                                               client_secret="7104ea35d9864b62ab939963deeb068c",
-                                               redirect_uri="http://127.0.0.1:8888/callback",
-                                               scope="playlist-modify-private",
-                                               show_dialog=True,
-                                               cache_path="token.txt"))
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+    client_id=os.getenv("SPOTIPY_CLIENT_ID"),
+    client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
+    redirect_uri=os.getenv("SPOTIPY_REDIRECT_URI"),
+    scope="playlist-modify-private",
+    show_dialog=True,
+    cache_path="token.txt"
+))
+
 user_id = sp.current_user()["id"]
 
 
