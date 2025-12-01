@@ -14,3 +14,19 @@ __pycache__/
 
 .DS_Store
 Thumbs.db
+
+gym-booking-automation/chrome_profile/
+
+# Python / cache
+**/__pycache__/
+**/*.pyc
+
+# venv & IDE
+**/.venv/
+**/venv/
+**/.idea/
+**/.vscode/
+
+# Selenium local Chrome profile (her yerde ve bu projede)
+**/chrome_profile/**
+gym-booking-automation/chrome_profile/
